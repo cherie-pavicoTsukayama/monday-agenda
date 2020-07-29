@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
 import mondaySdk from "monday-sdk-js";
-import Task from './components/task';
+import Header from './components/Header';
+import AddTaskButton from './components/AddTaskButton';
 const monday = mondaySdk();
 
 
@@ -13,11 +14,15 @@ class App extends React.Component {
     this.state = {
       settings: {},
       name: "",
-      boardData: null
+      boardData: null,
+      showAddTaskModal: false
     };
-    console.log(this.state)
+    this.handleClickShowAddTaskModal = this.handleClickShowAddTaskModal.bind(this);
   }
 
+  handleClickShowAddTaskModal() {
+    this.state.showAddTaskModal ? this.setState({ showAddTaskModal: false }) : this.setState({ showAddTaskModal: true })
+  }
 
   componentDidMount() {
     // TODO: set up event listeners
@@ -39,14 +44,16 @@ class App extends React.Component {
     })
   }
 
- 
+
 
   render() {
     return (
-      <div className = "App"
-      style = {{ background: (this.state.settings.background)}}
+      <div
+        className="App"
+        style = {{ background: (this.state.settings.background)}}
       >
-        <Task boardData={this.state.boardData}/>
+          <Header boardData={this.state.boardData} />
+          <AddTaskButton onClick={this.handleClickShowAddTaskModal}/>
     </div >
     )
   }
