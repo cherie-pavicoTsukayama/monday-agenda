@@ -2,7 +2,9 @@ import React from "react";
 import "./App.css";
 import mondaySdk from "monday-sdk-js";
 import Header from './components/Header';
+import handleClickShowAddTaskModal from './components/AddTaskModal';
 import AddTaskButton from './components/AddTaskButton';
+import AddTaskModal from "./components/AddTaskModal";
 const monday = mondaySdk();
 
 
@@ -18,10 +20,18 @@ class App extends React.Component {
       showAddTaskModal: false
     };
     this.handleClickShowAddTaskModal = this.handleClickShowAddTaskModal.bind(this);
+    this.displayAddTaskButtonOrAddTaskModal = this.displayAddTaskButtonOrAddTaskModal.bind(this);
   }
 
   handleClickShowAddTaskModal() {
     this.state.showAddTaskModal ? this.setState({ showAddTaskModal: false }) : this.setState({ showAddTaskModal: true })
+  }
+  displayAddTaskButtonOrAddTaskModal() {
+    if(this.state.showAddTaskModal) {
+      return <AddTaskModal onClick={this.handleClickShowAddTaskModal}/>
+    } else {
+      return <AddTaskButton onClick={this.handleClickShowAddTaskModal} />
+    }
   }
 
   componentDidMount() {
@@ -53,7 +63,7 @@ class App extends React.Component {
         style = {{ background: (this.state.settings.background)}}
       >
           <Header boardData={this.state.boardData} />
-          <AddTaskButton onClick={this.handleClickShowAddTaskModal}/>
+          {this.displayAddTaskButtonOrAddTaskModal()}
     </div >
     )
   }
