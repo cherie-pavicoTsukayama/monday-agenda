@@ -12,7 +12,7 @@ export default class Task extends React.Component {
     if (this.props.boardData === null) {
       return <p>props board data is null</p>
     } else {
-      return <p>props board data is not null</p>
+      return <p>{ this.props.boardData.boards[0].name }</p>
     }
   }
 
