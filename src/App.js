@@ -17,7 +17,7 @@ class App extends React.Component {
       settings: {},
       name: "",
       boardData: null,
-      showAddTaskModal: false
+      showAddTaskModal: true
     };
     this.handleClickShowAddTaskModal = this.handleClickShowAddTaskModal.bind(this);
     this.displayAddTaskButtonOrAddTaskModal = this.displayAddTaskButtonOrAddTaskModal.bind(this);
@@ -43,7 +43,19 @@ class App extends React.Component {
       this.setState({context: res.data});
       console.log('response data:', res.data);
 
-    monday.api(`query ($boardIds: [Int]) { boards (ids:$boardIds) { name items(limit:1) { name column_values { title text } } } }`,
+    monday.api(`query ($boardIds: [Int])
+    {
+      boards (ids:$boardIds)
+      {
+        name items(limit:1)
+        {
+          name column_values
+          {
+            title text
+          }
+        }
+      }
+    }`,
       { variables: {boardIds: this.state.context.boardId} }
       )
     .then(res => {
