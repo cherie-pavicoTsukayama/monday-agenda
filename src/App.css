@@ -10,6 +10,16 @@ body {
 
 .task-modal {
   height: 80%;
-  width: 70%;
+  width: 90%;
   overflow-y: scroll;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #999;
+}
+
+th, td {
+  text-align: center;
+  border: 1px solid #999;
 }

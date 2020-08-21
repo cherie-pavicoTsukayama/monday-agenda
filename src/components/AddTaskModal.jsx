@@ -3,15 +3,59 @@ import React from 'react';
 export default class AddTaskModal extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      something: {}
+    }
+    console.log(this.props.boardData);
+  }
+  display() {
+
+    if (this.props.boardData === null) {
+      return <p>props board data is null</p>
+    } else {
+      const boards = this.props.boardData.boards;
+      console.log(boards);
+      return (
+        <div className="card container m-4 p-4">
+          <p>{this.props.boardData.boards[0].name}</p>
+          <table>
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th>Person</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{boards[0].items[0].name}</td>
+                <td>{boards[0].items[0].column_values[0].text}</td>
+                <td>{boards[0].items[0].column_values[1].text}</td>
+                <td>{boards[0].items[0].column_values[2].text}</td>
+                <td></td>
+
+              </tr>
+              <tr>{boards[0].items[0].name}</tr>
+              <tr></tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      )
+    }
   }
 
   render() {
     return(
       <div className="d-flex justify-content-center">
         <div className="card task-modal">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit ut tortor pretium viverra suspendisse potenti. Sagittis vitae et leo duis. Risus feugiat in ante metus dictum at tempor commodo. Massa vitae tortor condimentum lacinia quis vel eros donec. Mus mauris vitae ultricies leo integer malesuada nunc vel risus. Cursus metus aliquam eleifend mi in nulla posuere. Odio morbi quis commodo odio. Aliquam etiam erat velit scelerisque in dictum. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Dignissim suspendisse in est ante in nibh mauris cursus mattis. Amet tellus cras adipiscing enim.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Velit ut tortor pretium viverra suspendisse potenti. Sagittis vitae et leo duis. Risus feugiat in ante metus dictum at tempor commodo. Massa vitae tortor condimentum lacinia quis vel eros donec. Mus mauris vitae ultricies leo integer malesuada nunc vel risus. Cursus metus aliquam eleifend mi in nulla posuere. Odio morbi quis commodo odio. Aliquam etiam erat velit scelerisque in dictum. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere. Dignissim suspendisse in est ante in nibh mauris cursus mattis. Amet tellus cras adipiscing enim.
           <div>
+            {this.display()}
+          </div>
+          <div>
+
             <button
               className="btn btn-primary"
               onClick={ this.props.onClick }

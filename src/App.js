@@ -28,7 +28,7 @@ class App extends React.Component {
   }
   displayAddTaskButtonOrAddTaskModal() {
     if(this.state.showAddTaskModal) {
-      return <AddTaskModal onClick={this.handleClickShowAddTaskModal}/>
+      return <AddTaskModal onClick={this.handleClickShowAddTaskModal} boardData={this.state.boardData}/>
     } else {
       return <AddTaskButton onClick={this.handleClickShowAddTaskModal} />
     }
@@ -74,8 +74,9 @@ class App extends React.Component {
         className="App"
         style = {{ background: (this.state.settings.background)}}
       >
-          <Header boardData={this.state.boardData} />
-          {this.displayAddTaskButtonOrAddTaskModal()}
+        <Header boardData={this.state.boardData} />
+        {this.displayAddTaskButtonOrAddTaskModal()}
+
     </div >
     )
   }
