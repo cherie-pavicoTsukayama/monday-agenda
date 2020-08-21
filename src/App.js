@@ -1,7 +1,10 @@
 import React from "react";
 import "./App.css";
 import mondaySdk from "monday-sdk-js";
-import Task from './components/task';
+import Header from './components/Header';
+import handleClickShowAddTaskModal from './components/AddTaskModal';
+import AddTaskButton from './components/AddTaskButton';
+import AddTaskModal from "./components/AddTaskModal";
 const monday = mondaySdk();
 
 
@@ -13,11 +16,23 @@ class App extends React.Component {
     this.state = {
       settings: {},
       name: "",
-      boardData: null
+      boardData: null,
+      showAddTaskModal: true
     };
-    console.log(this.state)
+    this.handleClickShowAddTaskModal = this.handleClickShowAddTaskModal.bind(this);
+    this.displayAddTaskButtonOrAddTaskModal = this.displayAddTaskButtonOrAddTaskModal.bind(this);
   }
 
+  handleClickShowAddTaskModal() {
+    this.state.showAddTaskModal ? this.setState({ showAddTaskModal: false }) : this.setState({ showAddTaskModal: true })
+  }
+  displayAddTaskButtonOrAddTaskModal() {
+    if(this.state.showAddTaskModal) {
+      return <AddTaskModal onClick={this.handleClickShowAddTaskModal} boardData={this.state.boardData}/>
+    } else {
+      return <AddTaskButton onClick={this.handleClickShowAddTaskModal} />
+    }
+  }
 
   componentDidMount() {
     // TODO: set up event listeners
@@ -28,7 +43,19 @@ class App extends React.Component {
       this.setState({context: res.data});
       console.log('response data:', res.data);
 
-    monday.api(`query ($boardIds: [Int]) { boards (ids:$boardIds) { name items(limit:1) { name column_values { title text } } } }`,
+    monday.api(`query ($boardIds: [Int])
+    {
+      boards (ids:$boardIds)
+      {
+        name items(limit:1)
+        {
+          name column_values
+          {
+            title text
+          }
+        }
+      }
+    }`,
       { variables: {boardIds: this.state.context.boardId} }
       )
     .then(res => {
@@ -39,14 +66,17 @@ class App extends React.Component {
     })
   }
 
- 
+
 
   render() {
     return (
-      <div className = "App"
-      style = {{ background: (this.state.settings.background)}}
+      <div
+        className="App"
+        style = {{ background: (this.state.settings.background)}}
       >
-        <Task boardData={this.state.boardData}/>
+        <Header boardData={this.state.boardData} />
+        {this.displayAddTaskButtonOrAddTaskModal()}
+
     </div >
     )
   }
