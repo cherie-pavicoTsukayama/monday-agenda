@@ -23,3 +23,7 @@ th, td {
   text-align: center;
   border: 1px solid #999;
 }
+
+.pointer:hover {
+  cursor: pointer;
+}
