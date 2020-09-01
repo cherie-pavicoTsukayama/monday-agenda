@@ -28,7 +28,8 @@ class App extends React.Component {
   }
   displayAddTaskButtonOrAddTaskModal() {
     if(this.state.showAddTaskModal) {
-      return <AddTaskModal onClick={this.handleClickShowAddTaskModal} boardData={this.state.boardData}/>
+      return <AddTaskModal onClick={this.handleClickShowAddTaskModal}
+      boardData={this.state.boardData}/>
     } else {
       return <AddTaskButton onClick={this.handleClickShowAddTaskModal} />
     }
@@ -47,7 +48,7 @@ class App extends React.Component {
     {
       boards (ids:$boardIds)
       {
-        name items(limit:1)
+        name items()
         {
           name column_values
           {
